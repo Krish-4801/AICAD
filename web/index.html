@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity AICAD — Parametric 3D CAD Generator</title>
+    <meta name="description" content="Generate high-quality parametric 3D CAD STEP and STL models from natural language using Antigravity and build123d.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Prism.js for Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar: History -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fa-solid fa-cube logo-icon"></i>
+                    <span>AICAD</span>
+                </div>
+                <a href="presentation.html" target="_blank" class="pres-btn" title="View Project Slideshow">
+                    <i class="fa-solid fa-display"></i> Slides
+                </a>
+            </div>
+            <div class="history-section">
+                <h3><i class="fa-solid fa-history"></i> Generation History</h3>
+                <div id="history-list" class="history-list">
+                    <!-- History items will be inserted here -->
+                    <div class="no-history">No models generated yet</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <h1>Parametric CAD Pipeline</h1>
+                    <p>Describe your 3D parts in natural language and generate STEP files instantly</p>
+                </div>
+                <div class="connection-status">
+                    <span id="server-status-dot" class="status-dot offline"></span>
+                    <span id="server-status-text">Connecting to backend...</span>
+                </div>
+            </header>
+
+            <!-- Grid Layout for Generator and Workspace -->
+            <div class="content-grid">
+                <!-- Left Panel: Conversational CAD Chat -->
+                <section class="left-panel">
+                    <div class="glass-card chat-card">
+                        <div class="chat-header">
+                            <h2><i class="fa-solid fa-comments text-gradient"></i> <span id="chat-title">New CAD Session</span></h2>
+                            <button id="btn-new-chat" class="btn-small" title="Start a brand new model">
+                                <i class="fa-solid fa-plus"></i> New Model
+                            </button>
+                        </div>
+                        
+                        <!-- Chat Messages Container -->
+                        <div id="chat-messages" class="chat-messages">
+                            <!-- Onboarding welcome message when chat is empty -->
+                            <div id="chat-onboarding" class="chat-onboarding">
+                                <div class="onboarding-welcome">
+                                    <i class="fa-solid fa-wand-magic-sparkles onboarding-icon text-gradient"></i>
+                                    <h3>Generative CAD Assistant</h3>
+                                    <p>Describe your 3D part in natural language to generate STEP/STL files, then refine it in chat!</p>
+                                </div>
+                                <div class="onboarding-suggestions">
+                                    <h4>Try a suggestion:</h4>
+                                    <div class="suggestions">
+                                        <span class="suggestion-tag" data-prompt="Make an L-bracket, 50mm on each side, 4mm thick, with 2 M4 clearance holes on each leg.">L-Bracket</span>
+                                        <span class="suggestion-tag" data-prompt="A simple hex nut with 10mm flat-to-flat distance, 5mm thickness, and an M5 threaded clearance hole.">M5 Hex Nut</span>
+                                        <span class="suggestion-tag" data-prompt="An enclosure lid: rectangular box cover 120x80mm, 2.5mm wall thickness, with a 1.5mm lip and four corner screw holes.">Enclosure Lid</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Dynamic chat bubbles will be appended here -->
+                        </div>
+                        
+                        <!-- Chat Input Form -->
+                        <form id="generation-form" class="chat-input-form">
+                            <div class="input-wrapper">
+                                <textarea id="prompt-input" placeholder="Describe a new 3D model to generate..." required></textarea>
+                            </div>
+                            <button type="submit" id="btn-generate" class="btn-primary">
+                                <i class="fa-solid fa-play"></i> Run CAD Agent
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Template for active agent progress inside chat -->
+                    <div id="progress-template" class="hidden">
+                        <div class="agent-progress-box">
+                            <div class="progress-steps-container">
+                                <div class="step-item" data-step="queued">
+                                    <div class="step-icon"><i class="fa-solid fa-list-ul"></i></div>
+                                    <div class="step-details">
+                                        <h4>Request Queued</h4>
+                                        <p>Waiting for agent</p>
+                                    </div>
+                                </div>
+                                <div class="step-item" data-step="waking">
+                                    <div class="step-icon"><i class="fa-solid fa-bell"></i></div>
+                                    <div class="step-details">
+                                        <h4>Agent Woken Up</h4>
+                                        <p>Processing request</p>
+                                    </div>
+                                </div>
+                                <div class="step-item" data-step="coding">
+                                    <div class="step-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                                    <div class="step-details">
+                                        <h4>Generating Code</h4>
+                                        <p>Writing python script</p>
+                                    </div>
+                                </div>
+                                <div class="step-item" data-step="compiling">
+                                    <div class="step-icon"><i class="fa-solid fa-cogs"></i></div>
+                                    <div class="step-details">
+                                        <h4>Compiling Model</h4>
+                                        <p>Building step/stl</p>
+                                    </div>
+                                </div>
+                                <div class="step-item" data-step="visualizing">
+                                    <div class="step-icon"><i class="fa-solid fa-camera"></i></div>
+                                    <div class="step-details">
+                                        <h4>Taking Snapshot</h4>
+                                        <p>Rendering review image</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="status-logs">
+                                <pre class="status-logs-content">Waiting...</pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Panel: Visualizer & Code -->
+                <section class="right-panel">
+                    <!-- Viewer Card -->
+                    <div class="glass-card viewer-card">
+                        <div class="card-tabs">
+                            <button class="tab-btn active" id="tab-3d"><i class="fa-solid fa-cube"></i> Interactive 3D Model</button>
+                            <button class="tab-btn" id="tab-2d"><i class="fa-solid fa-image"></i> Rendered Snapshot</button>
+                            <button class="tab-btn" id="tab-code"><i class="fa-solid fa-code"></i> Python Generator Code</button>
+                        </div>
+                        
+                        <div class="tab-content-container">
+                            <!-- 3D Canvas -->
+                            <div id="content-3d" class="tab-content active">
+                                <div id="canvas-container">
+                                    <div class="viewer-placeholder">
+                                        <i class="fa-solid fa-drafting-compass placeholder-icon"></i>
+                                        <p>Generate a CAD model to interact with it in 3D</p>
+                                    </div>
+                                </div>
+                                <div id="viewer-controls" class="viewer-controls hidden">
+                                    <button id="btn-reset-view" title="Reset View"><i class="fa-solid fa-arrows-to-eye"></i> Reset View</button>
+                                    <button id="btn-toggle-wireframe" title="Toggle Wireframe"><i class="fa-solid fa-border-none"></i> Wireframe</button>
+                                    <span class="control-help"><i class="fa-solid fa-circle-question"></i> Drag to rotate | Scroll to zoom | Right-click drag to pan</span>
+                                </div>
+                            </div>
+
+                            <!-- 2D Image Snapshot -->
+                            <div id="content-2d" class="tab-content">
+                                <div id="snapshot-container">
+                                    <div class="viewer-placeholder">
+                                        <i class="fa-solid fa-image placeholder-icon"></i>
+                                        <p>Snapshot image will be displayed here</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Python Code View -->
+                            <div id="content-code" class="tab-content">
+                                <div class="code-header">
+                                    <span class="code-filename">model.py</span>
+                                    <button id="btn-copy-code" class="btn-small"><i class="fa-solid fa-copy"></i> Copy Code</button>
+                                </div>
+                                <div class="code-wrapper">
+                                    <pre><code id="code-display" class="language-python"># Generated build123d code will appear here...</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Downloads Section -->
+                    <div id="download-card" class="glass-card download-card hidden">
+                        <h3><i class="fa-solid fa-download"></i> Download Exported Artifacts</h3>
+                        <div class="download-grid">
+                            <a id="download-step" href="#" class="download-btn" download>
+                                <span class="ext">STEP</span>
+                                <span class="label">CAD Solid Model</span>
+                                <i class="fa-solid fa-file-export icon-dl"></i>
+                            </a>
+                            <a id="download-stl" href="#" class="download-btn" download>
+                                <span class="ext">STL</span>
+                                <span class="label">3D Mesh Geometry</span>
+                                <i class="fa-solid fa-file-export icon-dl"></i>
+                            </a>
+                            <a id="download-py" href="#" class="download-btn" download>
+                                <span class="ext">PYTHON</span>
+                                <span class="label">build123d Script</span>
+                                <i class="fa-solid fa-file-export icon-dl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading overlay for assets loading -->
+    <div id="global-loading" class="global-loading hidden">
+        <div class="loader-spinner"></div>
+        <p id="global-loading-text">Loading 3D Engine...</p>
+    </div>
+
+    <!-- External CDNs -->
+    <!-- Three.js and STLLoader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+    <!-- OrbitControls for Three.js -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- Prism.js for code highlight -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <!-- App Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

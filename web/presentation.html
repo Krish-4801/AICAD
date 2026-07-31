@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AICAD — Project Presentation</title>
+    <meta name="description" content="Parametric 3D CAD model generation from natural language descriptions project presentation.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Prism.js for Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="presentation.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Top Navigation / Status Header -->
+        <header class="pres-header">
+            <a href="index.html" class="btn-back">
+                <i class="fa-solid fa-arrow-left"></i> Back to Workspace
+            </a>
+            <div class="header-logo">
+                <i class="fa-solid fa-cube text-gradient"></i>
+                <span>AICAD Slideshow</span>
+            </div>
+            <div class="header-right">
+                <span class="slides-counter">
+                    Slide <span id="current-slide-num">1</span> of <span id="total-slides-num">7</span>
+                </span>
+                <a href="presentation.pptx" download class="btn-download-deck" title="Download PowerPoint Deck (.pptx)">
+                    <i class="fa-solid fa-file-powerpoint"></i> Download PPTX
+                </a>
+            </div>
+        </header>
+
+        <!-- Slides Wrapper -->
+        <main class="slides-wrapper">
+            <!-- Slide 1: Title Slide -->
+            <section class="slide-card active" id="slide-1">
+                <div class="slide-content title-layout">
+                    <div class="decor-bar"></div>
+                    <div class="title-text-group">
+                        <span class="badge">PROJECT PRESENTATION</span>
+                        <h1 class="slide-title huge">AICAD</h1>
+                        <h2 class="slide-subtitle text-gradient">Natural Language 3D CAD Generation</h2>
+                        <p class="description">
+                            Bridging generative AI and parametric boundary-representation modeling workflows. Speak in prose, engineer in solid code models, compile watertight STEP assets.
+                        </p>
+                        <div class="project-meta">
+                            <span class="meta-item"><i class="fa-solid fa-code"></i> Python + build123d</span>
+                            <span class="meta-item"><i class="fa-solid fa-microchip"></i> Gemini AI Agent</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: Problem & Opportunity -->
+            <section class="slide-card" id="slide-2">
+                <div class="slide-content split-layout">
+                    <div class="left-panel">
+                        <span class="slide-category">The Dilemma</span>
+                        <h2 class="slide-title">Limitations of Standard 3D AI</h2>
+                        <div class="points-list">
+                            <div class="point-item">
+                                <i class="fa-solid fa-circle-xmark icon-err"></i>
+                                <div>
+                                    <h3>Polygonal Mesh Output</h3>
+                                    <p>Existing 3D generators produce STL/OBJ triangles, which cannot be imported as editable bodies into standard CAD suites (SolidWorks/Fusion 360).</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <i class="fa-solid fa-circle-xmark icon-err"></i>
+                                <div>
+                                    <h3>No Parametric Features</h3>
+                                    <p>Mesh representations lack mathematical descriptors. You cannot adjust diameters, offset dimensions, or slide holes parametrically.</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <i class="fa-solid fa-circle-xmark icon-err"></i>
+                                <div>
+                                    <h3>Unsuited for CNC & Moldings</h3>
+                                    <p>Precision manufacturing demands mathematically perfect geometries (B-Rep solids) to compute precise toolpaths or drafts.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel highlight-card">
+                        <span class="slide-category">The Solution</span>
+                        <h2 class="slide-title text-gradient">Deterministic CAD Compilation</h2>
+                        <div class="points-list">
+                            <div class="point-item">
+                                <i class="fa-solid fa-circle-check icon-ok"></i>
+                                <div>
+                                    <h3>Prose-to-Code Framework</h3>
+                                    <p>The AI translates descriptive prompt specifications directly into clean, structured Python code using CAD packages.</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <i class="fa-solid fa-circle-check icon-ok"></i>
+                                <div>
+                                    <h3>Mathematical B-Rep Solids</h3>
+                                    <p>Code compiles using the industrial-grade OpenCascade geometry kernel to output native STEP solids.</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <i class="fa-solid fa-circle-check icon-ok"></i>
+                                <div>
+                                    <h3>Fully Editable Source</h3>
+                                    <p>Allows engineers to modify the generated Python script parameters or open the STEP file to continue manual detailing.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: Architecture & Workflow -->
+            <section class="slide-card" id="slide-3">
+                <div class="slide-content full-layout">
+                    <span class="slide-category">Pipeline Workflow</span>
+                    <h2 class="slide-title center">End-to-End Generative Flow</h2>
+                    <div class="flowchart-container">
+                        <div class="flow-step">
+                            <div class="step-badge">1</div>
+                            <i class="fa-solid fa-comment-dots flow-icon text-gradient"></i>
+                            <h3>Input Prompt</h3>
+                            <p>Prose description entered in UI (e.g. "Mounting bracket with countersinks")</p>
+                        </div>
+                        <div class="flow-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="flow-step">
+                            <div class="step-badge">2</div>
+                            <i class="fa-solid fa-brain flow-icon text-gradient"></i>
+                            <h3>CAD AI Agent</h3>
+                            <p>Gemini Agent plans coordinates, resolves spacing, and writes Python script</p>
+                        </div>
+                        <div class="flow-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="flow-step">
+                            <div class="step-badge">3</div>
+                            <i class="fa-solid fa-gears flow-icon text-gradient"></i>
+                            <h3>Solid Engine</h3>
+                            <p>Python script runs via OCP (OpenCascade) to build and validate the STEP solid</p>
+                        </div>
+                        <div class="flow-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="flow-step">
+                            <div class="step-badge">4</div>
+                            <i class="fa-solid fa-share-nodes flow-icon text-gradient"></i>
+                            <h3>Formats & UI</h3>
+                            <p>Exports STL/3MF/DXF mesh; renders model interactively in WebGL viewer</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: Parametric CAD Engine -->
+            <section class="slide-card" id="slide-4">
+                <div class="slide-content split-layout">
+                    <div class="left-panel">
+                        <span class="slide-category">CAD Technology</span>
+                        <h2 class="slide-title">The Modeling Core: build123d</h2>
+                        <p class="section-desc">
+                            Unlike traditional CSG (Constructive Solid Geometry) scripts, build123d provides a state-of-the-art Python interface to model with modern professional paradigms.
+                        </p>
+                        <div class="points-list">
+                            <div class="point-item">
+                                <i class="fa-solid fa-pencil-ruler icon-ok"></i>
+                                <div>
+                                    <h3>Sketch, Extrude, Fillet</h3>
+                                    <p>Allows building geometry naturally: drawing 2D profiles, extruding/revolving into 3D, and performing boolean modifications.</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <i class="fa-solid fa-bullseye icon-ok"></i>
+                                <div>
+                                    <h3>Joint Mates & Coordinates</h3>
+                                    <p>Align parts, clearance holes, and counterbores using named local locations on faces, bypassing manual coordinates math.</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <i class="fa-solid fa-shield-halved icon-ok"></i>
+                                <div>
+                                    <h3>Deterministic Validation</h3>
+                                    <p>Each compiled shape is checked for mathematical validity: closed shells, positive volumes, and valid topology counts.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel code-panel">
+                        <span class="slide-category">Example build123d Script</span>
+                        <div class="code-box">
+                            <pre><code class="language-python">from build123d import *
+
+# Draw a plate with two M5 bolt holes
+with BuildPart() as plate:
+    with BuildSketch() as sk:
+        Rectangle(50, 40)
+    Extrude(amount=6)
+    
+    # Locate faces and position clearance holes
+    top_face = plate.faces().sort_by(Axis.Z)[-1]
+    with BuildSketch(top_face) as hole_sk:
+        # Distance center to center 30mm
+        GridLocations(30, 0, 2, 1)
+        Circle(2.7) # M5 clearance radius
+    Extrude(amount=-6, mode=Mode.SUBTRACT)
+
+# Export STEP solid file
+plate.part.export_step("plate.step")</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Interactive Web UI -->
+            <section class="slide-card" id="slide-5">
+                <div class="slide-content split-layout">
+                    <div class="left-panel">
+                        <span class="slide-category">User Interface</span>
+                        <h2 class="slide-title">Interactive Workspace App</h2>
+                        <div class="points-list">
+                            <div class="point-item">
+                                <i class="fa-solid fa-spinner icon-ok"></i>
+                                <div>
+                                    <h3>Real-Time Agent Progress</h3>
+                                    <p>Stages are tracked dynamically: Request Queued &rarr; Agent Woken Up &rarr; Writing Python Code &rarr; Compiling STEP Model &rarr; Generating Snapshot.</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <i class="fa-solid fa-cube icon-ok"></i>
+                                <div>
+                                    <h3>Three.js WebGL Interactive Viewer</h3>
+                                    <p>Interactively rotate, zoom, and inspect generated 3D STL meshes directly in your web browser. Switch to wireframe mode to check inner surfaces.</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <i class="fa-solid fa-cloud-arrow-down icon-ok"></i>
+                                <div>
+                                    <h3>Direct Exports & Downloads</h3>
+                                    <p>Instantly download industrial-standard STEP files, clean STL meshes, or copy the compiled python generator source code with one click.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel image-preview-panel">
+                        <div class="image-wrapper-card">
+                            <img id="ui-preview-img" src="../engine_cylinder_20260605T101149Z.png" alt="AICAD Web UI Visualizer and engine cylinder model screenshot">
+                            <span class="img-caption">AICAD Workspace App with rendered model snapshot</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Case Studies & Examples -->
+            <section class="slide-card" id="slide-6">
+                <div class="slide-content split-layout">
+                    <div class="left-panel">
+                        <span class="slide-category">Case Studies</span>
+                        <h2 class="slide-title">Compiled CAD Showcase</h2>
+                        <p class="section-desc">
+                            The agent successfully translates multi-feature constraints into complete 3D models.
+                        </p>
+                        <div class="gallery-info">
+                            <div class="gallery-item-desc active" data-target="engine">
+                                <h4>1. Parametric Engine Cylinder</h4>
+                                <p>Features a central piston bore, mounting flange base with bolt circle mounting patterns, and multiple radial cooling fins compiled parametrically.</p>
+                            </div>
+                            <div class="gallery-item-desc" data-target="bracket">
+                                <h4>2. L-Bracket Mounting Plate</h4>
+                                <p>A structural 90-degree bracket: 50x50mm legs, 4mm thickness, fitted with dual M4 clearance hole slots on both flat surfaces.</p>
+                            </div>
+                            <div class="gallery-item-desc" data-target="nut">
+                                <h4>3. M5 Hexagonal Clearance Nut</h4>
+                                <p>A 10mm flat-to-flat spacing nut with 5mm depth thickness and a central clearance inner bore cylinder for fitting screws.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel image-showcase-panel">
+                        <div class="slideshow-gallery">
+                            <img id="gallery-img-engine" class="gallery-slide active" src="../engine_cylinder_20260605T101149Z.png" alt="Engine cylinder model with cooling fins">
+                            <img id="gallery-img-bracket" class="gallery-slide" src="../requests/req_1783352682/snapshot_20260706T155103Z.png" alt="L-Bracket 3D model snapshot">
+                            <img id="gallery-img-nut" class="gallery-slide" src="../requests/req_1783352075/snapshot_20260706T153605Z.png" alt="M5 Hex Nut 3D model snapshot">
+                        </div>
+                        <div class="gallery-controls">
+                            <button id="btn-gallery-prev" class="gallery-btn"><i class="fa-solid fa-angle-left"></i></button>
+                            <span id="gallery-title">1. Parametric Engine Cylinder</span>
+                            <button id="btn-gallery-next" class="gallery-btn"><i class="fa-solid fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Conclusion & Roadmap -->
+            <section class="slide-card" id="slide-7">
+                <div class="slide-content split-layout">
+                    <div class="left-panel">
+                        <span class="slide-category">Conclusion</span>
+                        <h2 class="slide-title">Achievements</h2>
+                        <div class="points-list">
+                            <div class="point-item">
+                                <i class="fa-solid fa-award icon-ok"></i>
+                                <div>
+                                    <h3>Zero-Shot Solid CAD Generation</h3>
+                                    <p>Validated that prose specifications can successfully compile complex mechanical bodies (watertight manifolds, fillets, parameters).</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <i class="fa-solid fa-award icon-ok"></i>
+                                <div>
+                                    <h3>Standard B-Rep Output</h3>
+                                    <p>Ensured files are exportable into full commercial engineering toolchains (Fusion 360, CNC machining) by targeting STEP format.</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <i class="fa-solid fa-award icon-ok"></i>
+                                <div>
+                                    <h3>Developer-First Environment</h3>
+                                    <p>Constructed an automated execution environment (using Python and uv) integrated with an interactive real-time browser preview portal.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel highlight-card">
+                        <span class="slide-category">Roadmap</span>
+                        <h2 class="slide-title text-gradient">The Future: Multi-Part & Mating</h2>
+                        <div class="points-list">
+                            <div class="point-item">
+                                <i class="fa-solid fa-map-pin icon-ok"></i>
+                                <div>
+                                    <h3>Multi-Part Mechanical Assemblies</h3>
+                                    <p>Extend the AI planner to output assembly scripts containing mated joints, pins, and dynamic motion parameters.</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <i class="fa-solid fa-map-pin icon-ok"></i>
+                                <div>
+                                    <h3>Automated 2D Engineering Prints</h3>
+                                    <p>Generate standard technical drawing sheets with automated front/top/side projection views, center lines, and dimensions in DXF.</p>
+                                </div>
+                            </div>
+                            <div class="point-item">
+                                <i class="fa-solid fa-map-pin icon-ok"></i>
+                                <div>
+                                    <h3>Offline Desktop IDE Integration</h3>
+                                    <p>Plug generation endpoints directly into FreeCAD or SolidWorks macro managers to render designs straight inside the local editor.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Slide Controls Footer -->
+        <footer class="pres-footer">
+            <div class="controls-left">
+                <button id="btn-prev" class="btn-control" title="Previous Slide (Left Arrow / Backspace)">
+                    <i class="fa-solid fa-chevron-left"></i> Previous
+                </button>
+            </div>
+            
+            <!-- Slide Indicators Dots -->
+            <div class="slides-indicators" id="indicators-container">
+                <!-- dots generated via JS -->
+            </div>
+
+            <div class="controls-right">
+                <button id="btn-next" class="btn-control" title="Next Slide (Right Arrow / Space)">
+                    Next <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- External CDNs for code highlight -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <!-- Presentation Script -->
+    <script src="presentation.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+[project]
+name = "aicad"
+version = "0.1.0"
+description = "Text-to-CAD generation with Gemini CLI — create 3D models from natural language"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "anthropic>=0.104.1",
+    "openai>=2.38.0",
+    "requests>=2.34.2",
+    "ezdxf>=0.19",
+]
+
+[project.optional-dependencies]
+cad = [
+    "build123d",
+]

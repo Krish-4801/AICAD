@@ -1,0 +1,25 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# CAD outputs
+*.step
+*.stp
+*.stl
+*.3mf
+*.dxf
+*.glb
+models/
+requests/

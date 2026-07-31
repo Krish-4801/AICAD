@@ -1,0 +1,14 @@
+Starting server on port 8080...
+Traceback (most recent call last):
+  File "/Users/ginger/Developer/AICAD/server.py", line 198, in <module>
+    run()
+    ~~~^^
+  File "/Users/ginger/Developer/AICAD/server.py", line 193, in run
+    httpd = ThreadingTCPServer(server_address, CADRequestHandler)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.0_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 48] Address already in use

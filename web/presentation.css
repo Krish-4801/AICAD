@@ -1,0 +1,686 @@
+/* AICAD Presentation CSS */
+
+:root {
+    --bg-dark: #0f172a;       /* Slate 900 */
+    --bg-card: rgba(30, 41, 59, 0.7);  /* Glass Slate 800 */
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-primary: #f8fafc;  /* Slate 50 */
+    --text-muted: #94a3b8;    /* Slate 400 */
+    --primary-gradient: linear-gradient(135deg, #a855f7 0%, #14b8a6 100%);
+    --accent-purple: #a855f7;  /* Purple 500 */
+    --accent-teal: #14b8a6;    /* Teal 500 */
+    --accent-blue: #3b82f6;    /* Blue 500 */
+    --success: #22c55e;
+    --error: #ef4444;
+    --transition-speed: 0.5s;
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-code: 'Fira Code', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    overflow: hidden; /* Prevent scrolling, presentation is full-screen height */
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Header styling */
+.pres-header {
+    height: 70px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    background-color: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    position: relative;
+}
+
+.btn-back {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: rgba(255, 255, 255, 0.03);
+    transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.btn-download-deck {
+    color: var(--bg-dark);
+    background-color: var(--accent-teal);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-download-deck:hover {
+    background-color: #119f8f;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.4);
+}
+
+.btn-download-deck i {
+    font-size: 1rem;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.text-gradient {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.slides-counter {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+}
+
+/* Slides Wrapper */
+.slides-wrapper {
+    height: calc(100vh - 150px);
+    width: 100%;
+    position: relative;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Base Slide Card */
+.slide-card {
+    position: absolute;
+    width: calc(100% - 80px);
+    height: calc(100% - 80px);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    backdrop-filter: blur(16px);
+    padding: 40px;
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+    pointer-events: none;
+    transition: opacity var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1),
+                transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Active Slide state */
+.slide-card.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* Slide Content Layouts */
+.slide-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide-category {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-teal);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.slide-title {
+    font-family: var(--font-heading);
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    line-height: 1.2;
+}
+
+.slide-title.center {
+    text-align: center;
+}
+
+.slide-title.huge {
+    font-size: 5rem;
+    margin-bottom: 0;
+}
+
+.slide-subtitle {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Title Layout */
+.title-layout {
+    justify-content: center;
+    position: relative;
+    padding-left: 40px;
+}
+
+.decor-bar {
+    position: absolute;
+    left: 0;
+    top: calc(50% - 150px);
+    width: 8px;
+    height: 300px;
+    background: var(--primary-gradient);
+    border-radius: 4px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(168, 85, 247, 0.15);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    color: var(--accent-purple);
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 6px;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+}
+
+.title-text-group .description {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 800px;
+    margin-bottom: 30px;
+}
+
+.project-meta {
+    display: flex;
+    gap: 20px;
+}
+
+.meta-item {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background-color: rgba(255, 255, 255, 0.04);
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.meta-item i {
+    color: var(--accent-teal);
+}
+
+/* Split Layout (2 Columns) */
+.split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    height: 100%;
+}
+
+.left-panel, .right-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-start;
+}
+
+.highlight-card {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(20, 184, 166, 0.3);
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.section-desc {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+/* Bullet Points with Icons */
+.points-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.point-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.point-item i {
+    font-size: 1.3rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.icon-err {
+    color: var(--error);
+}
+
+.icon-ok {
+    color: var(--accent-teal);
+}
+
+.point-item h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+}
+
+.point-item p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+/* Flowchart Layout */
+.full-layout {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.flowchart-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+    gap: 15px;
+    flex-grow: 1;
+}
+
+.flow-step {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px 20px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    height: 280px;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.flow-step:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent-teal);
+    background-color: rgba(20, 184, 166, 0.02);
+}
+
+.step-badge {
+    position: absolute;
+    top: -15px;
+    width: 30px;
+    height: 30px;
+    background-color: var(--accent-teal);
+    color: var(--bg-dark);
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.flow-icon {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+}
+
+.flow-step h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.flow-step p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--text-muted);
+}
+
+.flow-arrow {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    animation: pulseArrow 2s infinite;
+}
+
+@keyframes pulseArrow {
+    0% { transform: translateX(0); opacity: 0.4; }
+    50% { transform: translateX(4px); opacity: 1; }
+    100% { transform: translateX(0); opacity: 0.4; }
+}
+
+/* Code Panel styling */
+.code-panel {
+    background-color: #1e1e2e;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.code-panel .slide-category {
+    padding: 16px 24px 0 24px;
+    margin-bottom: 0;
+}
+
+.code-box {
+    padding: 16px 24px;
+    flex-grow: 1;
+    overflow-y: auto;
+    font-size: 0.85rem;
+}
+
+.code-box pre, .code-box code {
+    font-family: var(--font-code) !important;
+    background: transparent !important;
+}
+
+/* Image preview styles (Slide 5) */
+.image-preview-panel {
+    justify-content: center;
+    align-items: center;
+}
+
+.image-wrapper-card {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 12px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.image-wrapper-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    border-radius: 8px;
+    background-color: #1e293b;
+}
+
+.img-caption {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Image Showcase / Gallery (Slide 6) */
+.gallery-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.gallery-item-desc {
+    padding: 16px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.gallery-item-desc.active {
+    border-color: var(--accent-purple);
+    background-color: rgba(168, 85, 247, 0.05);
+}
+
+.gallery-item-desc h4 {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.gallery-item-desc.active h4 {
+    color: var(--accent-purple);
+}
+
+.gallery-item-desc p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--text-muted);
+}
+
+.image-showcase-panel {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    justify-content: center;
+    align-items: center;
+}
+
+.slideshow-gallery {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #1e293b;
+    border-radius: 12px;
+}
+
+.gallery-slide {
+    position: absolute;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+}
+
+.gallery-slide.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.gallery-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 16px;
+    padding: 0 8px;
+}
+
+.gallery-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background-color: rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.gallery-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+#gallery-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* Footer Navigation Controls */
+.pres-footer {
+    height: 80px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    background-color: rgba(15, 23, 42, 0.9);
+    position: relative;
+    z-index: 10;
+}
+
+.btn-control {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: rgba(255, 255, 255, 0.04);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-control:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-control:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Dot Indicators */
+.slides-indicators {
+    display: flex;
+    gap: 12px;
+}
+
+.indicator-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator-dot:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.indicator-dot.active {
+    background-color: var(--accent-teal);
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
+}
+
+/* Responsive Scaling */
+@media (max-width: 1024px) {
+    .slides-wrapper {
+        padding: 20px;
+    }
+    .slide-card {
+        padding: 24px;
+        width: calc(100% - 40px);
+        height: calc(100% - 40px);
+    }
+    .split-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        overflow-y: auto;
+    }
+    .slide-title {
+        font-size: 1.8rem;
+        margin-bottom: 16px;
+    }
+    .slide-title.huge {
+        font-size: 3.5rem;
+    }
+    .code-box {
+        max-height: 200px;
+    }
+    .image-wrapper-card img {
+        height: 200px;
+    }
+    .slideshow-gallery {
+        height: 200px;
+    }
+}
